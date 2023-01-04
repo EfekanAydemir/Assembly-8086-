@@ -1,0 +1,51 @@
+
+org 100h
+
+MOV BX,2000H
+
+mov [BX], 3344H  ;2000
+ADD BX,2
+
+MOV [BX], 1122H  ;2002
+ADD BX,2 
+
+mov [BX], 7788H  ;2004
+ADD BX,2
+
+MOV [BX], 5566H  ;2006
+ADD BX,2
+
+; bx = 2008h
+
+;mul bx ; ax = ax* bx
+
+MOV AX, [BX-6] ;1122
+MOV si, [bx-4] ;7788
+MUL si
+
+
+mov ax, [bx-8]  ;3344
+mov si, [bx-2]  ;5566
+mul si
+
+
+
+mov ax, [bx-6]     ; ax = 1122h
+mov di, [bx-2]   ; di = 5566h
+mul di           ; AX= 1D8C, DX = 05B7 
+
+mov [2014h], dx
+mov [2012h], ax
+                
+
+mov ax, [bx-8]     ; ax = 3344h
+mov di, [bx-4]   ; di = 7788h
+mul di       ;ax = D820h,   dx= 17EFh
+
+MOV [200Eh], AX
+MOV [2010h], DX
+
+  
+
+
+ret
